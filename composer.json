@@ -1,0 +1,29 @@
+{
+    "name": "mbober35/backups",
+    "description": "Backup Laravel application",
+    "type": "library",
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MBober35",
+            "email": "info@mbober.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MBober35\\Backups\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MBober35\\Backups\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
