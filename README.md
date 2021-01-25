@@ -16,3 +16,5 @@
 `backup:app {period=daily} {--folder=} {--cloud}` - Создание архива и отправка в облако
 
 `restore:app {period=daily} {--folder=} {--from-cloud}` - Скачивание архива и восстановление
+
+`backup:list` - Список текущих бэкапов в облаке

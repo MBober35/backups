@@ -13,6 +13,7 @@ use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
 use MBober35\Backups\Commands\BackupAppCommand;
 use MBober35\Backups\Commands\BackupDataBaseCommand;
+use MBober35\Backups\Commands\BackupListCommand;
 use MBober35\Backups\Commands\BackupStorageCommand;
 use MBober35\Backups\Commands\PullAppCommand;
 use MBober35\Backups\Commands\PushAppCommand;
@@ -52,6 +53,8 @@ class ServiceProvider extends BaseProvider
             RestoreAppCommand::class,
             RestoreStorageCommand::class,
             RestoreDataBaseCommand::class,
+
+            BackupListCommand::class,
         ]);
         // Добавить конфигурацию для файловой системы.
         app()->config['filesystems.disks.backups'] = [
