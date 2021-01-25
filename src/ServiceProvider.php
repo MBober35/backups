@@ -14,7 +14,11 @@ use League\Flysystem\Filesystem;
 use MBober35\Backups\Commands\BackupAppCommand;
 use MBober35\Backups\Commands\BackupDataBaseCommand;
 use MBober35\Backups\Commands\BackupStorageCommand;
+use MBober35\Backups\Commands\PullAppCommand;
 use MBober35\Backups\Commands\PushAppCommand;
+use MBober35\Backups\Commands\RestoreAppCommand;
+use MBober35\Backups\Commands\RestoreDataBaseCommand;
+use MBober35\Backups\Commands\RestoreStorageCommand;
 
 class ServiceProvider extends BaseProvider
 {
@@ -43,6 +47,11 @@ class ServiceProvider extends BaseProvider
             BackupStorageCommand::class,
             BackupAppCommand::class,
             PushAppCommand::class,
+
+            PullAppCommand::class,
+            RestoreAppCommand::class,
+            RestoreStorageCommand::class,
+            RestoreDataBaseCommand::class,
         ]);
         // Добавить конфигурацию для файловой системы.
         app()->config['filesystems.disks.backups'] = [

@@ -46,13 +46,13 @@ class BackupAppCommand extends Command
     {
         // Backup storage.
         $this->callSilent("backup:storage");
-        if (! Storage::disk("backups")->exists(BackupStorageCommand::FILE_NAME)) {
+        if (!Storage::disk("backups")->exists(BackupStorageCommand::FILE_NAME)) {
             $this->error("Backup storage failed");
             return;
         }
         // Backup database.
         $this->callSilent("backup:db");
-        if (! Storage::disk("backups")->exists(BackupDataBaseCommand::FILE_NAME)) {
+        if (!Storage::disk("backups")->exists(BackupDataBaseCommand::FILE_NAME)) {
             $this->error("Backup database failed");
             return;
         }
@@ -66,12 +66,11 @@ class BackupAppCommand extends Command
 
         try {
             $this->zip = Zip::create(backup_path($filename));
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $this->zip = null;
         }
 
-        if (! $this->zip) {
+        if (!$this->zip) {
             $this->error("Fail init archive");
             return;
         }
@@ -96,8 +95,7 @@ class BackupAppCommand extends Command
             Storage::disk("backups")->move($filename, "{$folder}/{$filename}");
 
             $this->info("Backup {$period} create successfully");
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $this->error("Error while generated archive");
             $this->line($exception->getMessage());
             return;
@@ -105,12 +103,12 @@ class BackupAppCommand extends Command
 
         if ($this->option("cloud")) {
             $s3Folder = $this->option("folder");
-             if (empty($s3Folder)) $s3Folder = config("backups.folder");
-             $this->call("backup:push", [
-                 "period" => $period,
-                 "--from-current" => true,
-                 "--folder" => $s3Folder,
-             ]);
+            if (empty($s3Folder)) $s3Folder = config("backups.folder");
+            $this->call("backup:push", [
+                "period" => $period,
+                "--from-current" => true,
+                "--folder" => $s3Folder,
+            ]);
         }
     }
 }
