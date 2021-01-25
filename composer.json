@@ -4,7 +4,9 @@
     "type": "library",
     "require": {
         "php": "^7.3|^8.0",
-        "laravel/framework": "^8.0"
+        "laravel/framework": "^8.0",
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "aws/aws-sdk-php": "^3.172"
     },
     "license": "MIT",
     "authors": [
@@ -16,7 +18,10 @@
     "autoload": {
         "psr-4": {
             "MBober35\\Backups\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "extra": {
         "laravel": {
