@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
+use MBober35\Backups\Commands\BackupAppCommand;
+use MBober35\Backups\Commands\BackupDataBaseCommand;
+use MBober35\Backups\Commands\BackupStorageCommand;
+use MBober35\Backups\Commands\PushAppCommand;
 
 class ServiceProvider extends BaseProvider
 {
@@ -21,7 +25,9 @@ class ServiceProvider extends BaseProvider
      */
     public function register()
     {
-        
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/backups.php', "backups"
+        );
     }
 
     /**
@@ -31,12 +37,19 @@ class ServiceProvider extends BaseProvider
      */
     public function boot()
     {
+        // Commands.
+        $this->commands([
+            BackupDataBaseCommand::class,
+            BackupStorageCommand::class,
+            BackupAppCommand::class,
+            PushAppCommand::class,
+        ]);
         // Добавить конфигурацию для файловой системы.
         app()->config['filesystems.disks.backups'] = [
             'driver' => 'local',
             'root' => backup_path(),
         ];
-        app()->config['filesystems.disks.yandex'] = [
+        app()->config['filesystems.disks.ya-backups'] = [
             'driver' => "yaS3Backups",
             "key" => config("backups.keyId"),
             'secret' => config("backups.keySecret"),
